@@ -1,6 +1,7 @@
 import axios from 'axios'
 import osmtogeojson from 'osmtogeojson'
 import { useEffect, useState } from 'react'
+import Map from './components/map'
 import './App.css'
 
 function App() {
@@ -32,7 +33,8 @@ function App() {
 
 	return (
 		<>
-			<pre>{JSON.stringify(geoData, undefined, 2)}</pre>
+			<Map />
+			{/* <pre>{JSON.stringify(geoData, undefined, 2)}</pre> */}
 		</>
 	)
 }
