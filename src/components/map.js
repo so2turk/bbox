@@ -1,6 +1,8 @@
 import L from 'leaflet'
-import { MapContainer, TileLayer, useMap } from 'react-leaflet'
+import { FeatureGroup, MapContainer, TileLayer, useMap } from 'react-leaflet'
+import { EditControl } from 'react-leaflet-draw'
 import 'leaflet/dist/leaflet.css'
+import 'leaflet-draw/dist/leaflet.draw.css'
 
 const Map = ({ geoData }) => {
 	const center = { lat: 52.519, lng: 13.405 }
@@ -30,6 +32,19 @@ const Map = ({ geoData }) => {
 					attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 					url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
 				/>
+				<FeatureGroup ref={mapRef}>
+					<EditControl
+						position="topleft"
+						draw={{
+							rectangle: true,
+							circle: false,
+							polyline: false,
+							circlemarker: false,
+							marker: false,
+							polygon: false,
+						}}
+					/>
+				</FeatureGroup>
 				<GeoJSONLayer />
 			</MapContainer>
 		</>
