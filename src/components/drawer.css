@@ -1,36 +1,18 @@
 .drawer {
   display: flex;
-  height: 100%;
+  flex-direction: column;
+  height: 50%;
   position: fixed;
-  top: 0;
-  right: 45px;
   width: 100%;
   z-index: 200;
-  transform: translateX(100%);
+  bottom: 100px;
+  transform: translateY(100%);
   transition: transform 0.5s ease-out;
 }
 
-@media only screen and (min-width: 600px) {
-  .drawer {
-    width: 40%;
-    min-width: 400px;
-    max-width: 600px;
-  }
-}
-
 .drawer.open {
-  transform: translateX(0);
-  right: 0;
-}
-
-.backdrop {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 100;
-  top: 0;
-  right: 0;
+  transform: translateY(0);
+  bottom: 0;
 }
 
 .json-container {
@@ -42,6 +24,11 @@
 
 .json {
   padding: 40px;
+}
+
+.backdrop
+{
+  visibility: hidden;
 }
 
 .arrows-container {
@@ -57,4 +44,42 @@
   padding: 10px;
   background-color: #fff;
   height: min-content;
+}
+
+img.right, img.left {
+  transform: rotate(90deg);
+}
+
+@media only screen and (min-width: 600px) {
+  .drawer {
+    flex-direction: row;
+    height: 100%;
+    width: 40%;
+    min-width: 400px;
+    max-width: 600px;
+    top: 0;
+    right: 45px;
+    transform: translateX(100%);
+    transition: transform 0.5s ease-out;
+  }
+
+  .drawer.open {
+    transform: translateX(0);
+    right: 0;
+  }
+
+  .backdrop {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 100;
+    top: 0;
+    right: 0;
+  }
+
+  img.right,
+  img.left {
+    transform: rotate(0deg);
+  }
 }

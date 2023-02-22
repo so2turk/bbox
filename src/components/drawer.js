@@ -7,9 +7,14 @@ export const Drawer = ({ drawerOpen, geoData, toggleDrawer }) => {
 			<div className="arrows-container">
 				<div className="arrows" onClick={toggleDrawer}>
 					{drawerOpen ? (
-						<img src="/arrow-right.svg" alt="lol" width={30} />
+						<img
+							className="right"
+							src="/arrow-right.svg"
+							alt="lol"
+							width={30}
+						/>
 					) : (
-						<img src="/arrow-left.svg" alt="lol" width={30} />
+						<img className="left" src="/arrow-left.svg" alt="lol" width={30} />
 					)}
 				</div>
 			</div>
@@ -18,7 +23,7 @@ export const Drawer = ({ drawerOpen, geoData, toggleDrawer }) => {
 					<div className="json">
 						<ReactJson
 							src={geoData.GeoJSONData}
-							collapsed={false}
+							collapsed={1}
 							displayDataTypes={true}
 							indentWidth={2}
 						/>

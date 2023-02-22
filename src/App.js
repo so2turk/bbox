@@ -45,7 +45,7 @@ function App() {
 				toggleDrawer={toggleDrawer}
 			/>
 			{drawerOpen && <Backdrop toggleDrawer={toggleDrawer} />}
-			<Map geoData={geoData} setBbox={setBbox} />
+			<Map geoData={geoData} bbox={bbox} setBbox={setBbox} />
 		</>
 	)
 }

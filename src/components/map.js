@@ -6,7 +6,7 @@ import ReactDOMServer from 'react-dom/server'
 import 'leaflet/dist/leaflet.css'
 import 'leaflet-draw/dist/leaflet.draw.css'
 
-const Map = ({ geoData, setBbox }) => {
+const Map = ({ geoData, bbox, setBbox }) => {
 	const center = { lat: 52.519, lng: 13.405 }
 	const zoom = 16
 	const mapRef = useRef()
@@ -33,6 +33,7 @@ const Map = ({ geoData, setBbox }) => {
 			maxWidth: 300,
 			maxHeight: 250,
 		}
+		map.setView(center)
 
 		L.geoJSON(geoData.GeoJSONData, {
 			pointToLayer: function (feature, latlng) {
