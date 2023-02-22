@@ -8,10 +8,10 @@ function App() {
 	const [geoData, setGeoData] = useState({ GeoJSONData: [], error: '' })
 	const url = 'https://www.openstreetmap.org/api/0.6/map'
 	const [bbox, setBbox] = useState({
-		min_lon: 13.4,
-		min_lat: 52.5,
+		min_lon: 13.405,
+		min_lat: 52.519,
 		max_lon: 13.41,
-		max_lat: 52.51,
+		max_lat: 52.52,
 	})
 
 	useEffect(() => {
@@ -33,7 +33,7 @@ function App() {
 
 	return (
 		<>
-			<Map />
+			<Map geoData={geoData} />
 			{/* <pre>{JSON.stringify(geoData, undefined, 2)}</pre> */}
 		</>
 	)
