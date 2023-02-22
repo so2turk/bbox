@@ -29,11 +29,11 @@ function App() {
 		}
 
 		getGeoJSONData(bbox)
-	}, [])
+	}, [bbox])
 
 	return (
 		<>
-			<Map geoData={geoData} />
+			<Map geoData={geoData} setBbox={setBbox} />
 			{/* <pre>{JSON.stringify(geoData, undefined, 2)}</pre> */}
 		</>
 	)
