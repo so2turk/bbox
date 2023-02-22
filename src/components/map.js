@@ -7,7 +7,7 @@ import 'leaflet/dist/leaflet.css'
 import 'leaflet-draw/dist/leaflet.draw.css'
 
 const Map = ({ geoData, bbox, setBbox }) => {
-	const center = { lat: 52.519, lng: 13.405 }
+	let center = { lat: 52.519, lng: 13.405 }
 	const zoom = 16
 	const mapRef = useRef()
 	const geojsonMarkerOptions = {
@@ -29,11 +29,22 @@ const Map = ({ geoData, bbox, setBbox }) => {
 
 	const GeoJSONLayer = () => {
 		const map = useMap()
+		center = {
+			lat: (bbox.max_lat + bbox.min_lat) / 2,
+			lng: (bbox.max_lon + bbox.min_lon) / 2,
+		}
 		const popupOptions = {
 			maxWidth: 300,
 			maxHeight: 250,
 		}
 		map.setView(center)
+
+		// remove existing layer
+		map.eachLayer(function (layer) {
+			if (!!layer.toGeoJSON) {
+				map.removeLayer(layer)
+			}
+		})
 
 		L.geoJSON(geoData.GeoJSONData, {
 			pointToLayer: function (feature, latlng) {
@@ -51,7 +62,7 @@ const Map = ({ geoData, bbox, setBbox }) => {
 		}).addTo(map)
 	}
 
-	const onDrawn = (e) => {
+	const onDrawn = () => {
 		const geo = mapRef.current?.toGeoJSON()
 		const indexOfLastBox = geo.features.length - 1
 
