@@ -2,10 +2,12 @@ import axios from 'axios'
 import osmtogeojson from 'osmtogeojson'
 import { useEffect, useState } from 'react'
 import Map from './components/map'
+import { Backdrop, Drawer } from './components/drawer'
 import './App.css'
 
 function App() {
 	const [geoData, setGeoData] = useState({ GeoJSONData: [], error: '' })
+	const [drawerOpen, setDrawerOpen] = useState(false)
 	const url = 'https://www.openstreetmap.org/api/0.6/map'
 	const [bbox, setBbox] = useState({
 		min_lon: 13.405,
@@ -31,10 +33,19 @@ function App() {
 		getGeoJSONData(bbox)
 	}, [bbox])
 
+	const toggleDrawer = () => {
+		setDrawerOpen(!drawerOpen)
+	}
+
 	return (
 		<>
+			<Drawer
+				drawerOpen={drawerOpen}
+				geoData={geoData}
+				toggleDrawer={toggleDrawer}
+			/>
+			{drawerOpen && <Backdrop toggleDrawer={toggleDrawer} />}
 			<Map geoData={geoData} setBbox={setBbox} />
-			{/* <pre>{JSON.stringify(geoData, undefined, 2)}</pre> */}
 		</>
 	)
 }
