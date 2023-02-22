@@ -2,6 +2,7 @@ import { useRef } from 'react'
 import L from 'leaflet'
 import { FeatureGroup, MapContainer, TileLayer, useMap } from 'react-leaflet'
 import { EditControl } from 'react-leaflet-draw'
+import ReactDOMServer from 'react-dom/server'
 import 'leaflet/dist/leaflet.css'
 import 'leaflet-draw/dist/leaflet.draw.css'
 
@@ -18,11 +19,33 @@ const Map = ({ geoData, setBbox }) => {
 		fillOpacity: 0.8,
 	}
 
+	const Popup = ({ props }) => {
+		return Object.keys(props).map((key) => (
+			<div className="popup-line">
+				<b>{key}</b> : {props[key]}
+			</div>
+		))
+	}
+
 	const GeoJSONLayer = () => {
 		const map = useMap()
+		const popupOptions = {
+			maxWidth: 300,
+			maxHeight: 250,
+		}
+
 		L.geoJSON(geoData.GeoJSONData, {
 			pointToLayer: function (feature, latlng) {
 				return L.circleMarker(latlng, geojsonMarkerOptions)
+			},
+
+			onEachFeature: (feature, layer) => {
+				layer
+					.bindPopup(
+						ReactDOMServer.renderToString(<Popup props={feature.properties} />),
+						popupOptions
+					)
+					.openPopup()
 			},
 		}).addTo(map)
 	}

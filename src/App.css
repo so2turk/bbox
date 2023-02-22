@@ -2,3 +2,8 @@
   width: 100%;
   height: 100vh;
 }
+
+.popup-line {
+  font-size: 0.7rem;
+  padding: 2px;
+}
