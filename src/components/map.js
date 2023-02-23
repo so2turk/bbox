@@ -5,10 +5,12 @@ import { EditControl } from 'react-leaflet-draw'
 import ReactDOMServer from 'react-dom/server'
 import 'leaflet/dist/leaflet.css'
 import 'leaflet-draw/dist/leaflet.draw.css'
+import { useGetGeoData } from '../hooks/getGeoData'
 
-const Map = ({ geoData, bbox, setBbox }) => {
+const Map = ({ bbox, setBbox }) => {
+	const { geoData } = useGetGeoData({ bbox })
 	let center = { lat: 52.519, lng: 13.405 }
-	const zoom = 16
+	const zoom = 14
 	const mapRef = useRef()
 	const geojsonMarkerOptions = {
 		radius: 8,
@@ -33,10 +35,9 @@ const Map = ({ geoData, bbox, setBbox }) => {
 			lat: (bbox.max_lat + bbox.min_lat) / 2,
 			lng: (bbox.max_lon + bbox.min_lon) / 2,
 		}
-		const popupOptions = {
-			maxWidth: 300,
-			maxHeight: 250,
-		}
+
+		if (!map || geoData?.length < 1 || geoData?.error?.length > 0) return
+
 		map.setView(center)
 
 		// remove existing layer
@@ -46,7 +47,12 @@ const Map = ({ geoData, bbox, setBbox }) => {
 			}
 		})
 
-		L.geoJSON(geoData.GeoJSONData, {
+		const popupOptions = {
+			maxWidth: 300,
+			maxHeight: 250,
+		}
+
+		L.geoJSON(geoData, {
 			pointToLayer: function (feature, latlng) {
 				return L.circleMarker(latlng, geojsonMarkerOptions)
 			},
@@ -89,12 +95,14 @@ const Map = ({ geoData, bbox, setBbox }) => {
 						position="topleft"
 						onCreated={onDrawn}
 						draw={{
-							rectangle: true,
 							circle: false,
 							polyline: false,
 							circlemarker: false,
 							marker: false,
 							polygon: false,
+							rectangle: {
+								metric: 'metric',
+							},
 						}}
 					/>
 				</FeatureGroup>

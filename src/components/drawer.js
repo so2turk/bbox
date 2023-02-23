@@ -1,7 +1,12 @@
 import ReactJson from 'react-json-view'
+import { useGetGeoData } from '../hooks/getGeoData'
 import './drawer.css'
 
-export const Drawer = ({ drawerOpen, geoData, toggleDrawer }) => {
+export const Drawer = ({ drawerOpen, toggleDrawer, bbox }) => {
+	const { geoData } = useGetGeoData({ bbox })
+
+	if (geoData?.length < 1 || geoData?.error?.length > 0) return
+
 	return (
 		<div className={drawerOpen ? 'drawer open' : 'drawer'}>
 			<div className="arrows-container">
@@ -19,10 +24,10 @@ export const Drawer = ({ drawerOpen, geoData, toggleDrawer }) => {
 				</div>
 			</div>
 			<div className="json-container">
-				{geoData?.GeoJSONData.length > 0 && (
+				{geoData && (
 					<div className="json">
 						<ReactJson
-							src={geoData.GeoJSONData}
+							src={geoData}
 							collapsed={1}
 							displayDataTypes={true}
 							indentWidth={2}

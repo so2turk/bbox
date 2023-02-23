@@ -5,7 +5,7 @@
   position: fixed;
   width: 100%;
   z-index: 200;
-  bottom: 100px;
+  bottom: 45px;
   transform: translateY(100%);
   transition: transform 0.5s ease-out;
 }
@@ -40,9 +40,8 @@
 .arrows {
   display: flex;
   justify-content: center;
-  margin-top: 50px;
   padding: 10px;
-  background-color: #fff;
+  background-color: bisque;
   height: min-content;
 }
 
@@ -69,6 +68,7 @@ img.right, img.left {
   }
 
   .backdrop {
+    visibility: visible;
     position: fixed;
     width: 100%;
     height: 100%;
@@ -76,6 +76,10 @@ img.right, img.left {
     z-index: 100;
     top: 0;
     right: 0;
+  }
+
+  .arrows {
+    margin-top: 30px;
   }
 
   img.right,
