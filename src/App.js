@@ -1,10 +1,10 @@
 import { createContext, useState } from 'react'
 
 // components
-import Map from './components/map'
-import Notifications from './components/notifications'
-import { Backdrop, Drawer } from './components/drawer'
-import { Spinner } from './components/spinner'
+import Map from './components/map/map'
+import Notifications from './components/widgets/notifications'
+import { Backdrop, Drawer } from './components/drawer/drawer'
+import { Spinner } from './components/widgets/spinner'
 
 // utils
 import { useGetGeoData } from './hooks/getGeoData'
@@ -12,7 +12,7 @@ import './App.css'
 export const AppContext = createContext(null)
 
 function App() {
-	const [drawerOpen, setDrawerOpen] = useState(false)
+	const [drawerOpen, setDrawerOpen] = useState(true)
 	const [bbox, setBbox] = useState({
 		min_lon: 13.405,
 		min_lat: 52.519,

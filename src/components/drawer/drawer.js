@@ -1,10 +1,10 @@
 import { useContext } from 'react'
-import ReactJson from 'react-json-view'
 
 // utils
-import { AppContext } from '../App'
-import { useGetGeoData } from '../hooks/getGeoData'
+import { AppContext } from '../../App'
+import { useGetGeoData } from '../../hooks/getGeoData'
 import './drawer.css'
+import Tabs from './tabs'
 
 export const Drawer = () => {
 	const { bbox, drawerOpen, toggleDrawer } = useContext(AppContext)
@@ -28,17 +28,8 @@ export const Drawer = () => {
 					)}
 				</div>
 			</div>
-			<div className="json-container">
-				{geoData && (
-					<div className="json">
-						<ReactJson
-							src={geoData}
-							collapsed={1}
-							displayDataTypes={true}
-							indentWidth={2}
-						/>
-					</div>
-				)}
+			<div className="tabs-container">
+				<Tabs />
 			</div>
 		</div>
 	)

@@ -1,7 +1,7 @@
 .drawer {
   display: flex;
   flex-direction: column;
-  height: 50%;
+  height: 70%;
   position: fixed;
   width: 100%;
   z-index: 200;
@@ -15,20 +15,19 @@
   bottom: 0;
 }
 
-.json-container {
-  overflow: scroll;
+.tabs-container {
   height: 100%;
   width: 100%;
-  background: bisque;
 }
 
-.json {
-  padding: 40px;
-}
-
-.backdrop
-{
-  visibility: hidden;
+.backdrop {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 100;
+  top: 0;
+  right: 0;
 }
 
 .arrows-container {
@@ -41,7 +40,7 @@
   display: flex;
   justify-content: center;
   padding: 10px;
-  background-color: bisque;
+  background-color: rgb(44, 37, 29);
   height: min-content;
 }
 
@@ -64,17 +63,6 @@ img.right, img.left {
 
   .drawer.open {
     transform: translateX(0);
-    right: 0;
-  }
-
-  .backdrop {
-    visibility: visible;
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 100;
-    top: 0;
     right: 0;
   }
 
