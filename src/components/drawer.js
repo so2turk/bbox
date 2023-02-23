@@ -1,8 +1,13 @@
+import { useContext } from 'react'
 import ReactJson from 'react-json-view'
+
+// utils
+import { AppContext } from '../App'
 import { useGetGeoData } from '../hooks/getGeoData'
 import './drawer.css'
 
-export const Drawer = ({ drawerOpen, toggleDrawer, bbox }) => {
+export const Drawer = () => {
+	const { bbox, drawerOpen, toggleDrawer } = useContext(AppContext)
 	const { geoData } = useGetGeoData({ bbox })
 
 	if (geoData?.length < 1 || geoData?.error?.length > 0) return
@@ -39,6 +44,8 @@ export const Drawer = ({ drawerOpen, toggleDrawer, bbox }) => {
 	)
 }
 
-export const Backdrop = ({ toggleDrawer }) => {
+export const Backdrop = () => {
+	const { toggleDrawer } = useContext(AppContext)
+
 	return <div className="backdrop" onClick={toggleDrawer} />
 }

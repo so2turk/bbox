@@ -1,13 +1,17 @@
-import { useRef } from 'react'
+import { useContext, useRef } from 'react'
 import L from 'leaflet'
 import { FeatureGroup, MapContainer, TileLayer, useMap } from 'react-leaflet'
 import { EditControl } from 'react-leaflet-draw'
 import ReactDOMServer from 'react-dom/server'
 import 'leaflet/dist/leaflet.css'
 import 'leaflet-draw/dist/leaflet.draw.css'
-import { useGetGeoData } from '../hooks/getGeoData'
 
-const Map = ({ bbox, setBbox }) => {
+// utils
+import { useGetGeoData } from '../hooks/getGeoData'
+import { AppContext } from '../App'
+
+const Map = () => {
+	const { bbox, setBbox } = useContext(AppContext)
 	const { geoData } = useGetGeoData({ bbox })
 	let center = { lat: 52.519, lng: 13.405 }
 	const zoom = 14
