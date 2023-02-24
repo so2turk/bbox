@@ -18,12 +18,17 @@ export const Drawer = () => {
 					{drawerOpen ? (
 						<img
 							className="right"
-							src="/arrow-right.svg"
+							src="/assets/arrow-right.svg"
 							alt="lol"
 							width={30}
 						/>
 					) : (
-						<img className="left" src="/arrow-left.svg" alt="lol" width={30} />
+						<img
+							className="left"
+							src="/assets/arrow-left.svg"
+							alt="lol"
+							width={30}
+						/>
 					)}
 				</div>
 			</div>
