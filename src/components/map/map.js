@@ -1,15 +1,16 @@
-import { useContext, useRef } from 'react'
+import { useRef } from 'react'
 import { FeatureGroup, MapContainer, TileLayer } from 'react-leaflet'
 import { EditControl } from 'react-leaflet-draw'
 import 'leaflet/dist/leaflet.css'
 import 'leaflet-draw/dist/leaflet.draw.css'
 
 // utils
-import { AppContext } from '../../App'
 import GeoJSONLayer from './get-json-layer'
+import { useBbox } from '../../contexts/bbox.context'
 
 const Map = () => {
-	const { setBbox } = useContext(AppContext)
+	const { setBbox } = useBbox()
+
 	const mapRef = useRef()
 	const center = { lat: 52.519, lng: 13.405 }
 	const zoom = 14

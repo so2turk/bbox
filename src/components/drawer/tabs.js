@@ -1,15 +1,14 @@
-import { useContext, useState } from 'react'
+import { useState } from 'react'
 import ReactJson from 'react-json-view'
 
 // utils
-import { AppContext } from '../../App'
-import { useGetGeoData } from '../../hooks/getGeoData'
+import { useBbox } from '../../contexts/bbox.context'
 import './tabs.css'
 
 function Tabs() {
 	const [toggleState, setToggleState] = useState(2)
-	const { bbox } = useContext(AppContext)
-	const { geoData } = useGetGeoData({ bbox })
+	const { geoJSON } = useBbox()
+	const { geoData } = geoJSON
 
 	if (geoData?.length < 1 || geoData?.error?.length > 0) return
 
@@ -30,7 +29,7 @@ function Tabs() {
 					className={toggleState === 2 ? 'tabs active-tabs' : 'tabs'}
 					onClick={() => toggleTab(2)}
 				>
-					Help
+					About
 				</button>
 			</div>
 
@@ -67,13 +66,11 @@ function Tabs() {
 						width="90%"
 					/>
 					<h4>Rules</h4>
-					<p>
-						You need to repeat your query with a smaller area
-						<ul>
-							<li>If requested area exceeds the max box size (0.25)</li>
-							<li>If requested area contains more than 50000 nodes</li>
-						</ul>
-					</p>
+					<p>You need to repeat your query with a smaller area</p>
+					<ul>
+						<li>If requested area exceeds the max box size (0.25)</li>
+						<li>If requested area contains more than 50000 nodes</li>
+					</ul>
 				</div>
 			</div>
 		</div>

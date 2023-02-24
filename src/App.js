@@ -1,4 +1,4 @@
-import { createContext, useState } from 'react'
+import { createContext } from 'react'
 
 // components
 import Map from './components/map/map'
@@ -7,39 +7,22 @@ import { Backdrop, Drawer } from './components/drawer/drawer'
 import { Spinner } from './components/widgets/spinner'
 
 // utils
-import { useGetGeoData } from './hooks/getGeoData'
 import './App.css'
+import { useBbox } from './contexts/bbox.context'
 export const AppContext = createContext(null)
 
 function App() {
-	const [drawerOpen, setDrawerOpen] = useState(true)
-	const [bbox, setBbox] = useState({
-		min_lon: 13.405,
-		min_lat: 52.519,
-		max_lon: 13.41,
-		max_lat: 52.52,
-	})
-	const { geoError, isGettingGeoData } = useGetGeoData({ bbox })
-
-	const toggleDrawer = () => {
-		setDrawerOpen(!drawerOpen)
-	}
+	const { drawerOpen, geoJSON } = useBbox()
+	const { geoError, isGettingGeoData } = geoJSON
 
 	return (
-		<AppContext.Provider
-			value={{
-				bbox,
-				setBbox,
-				drawerOpen,
-				toggleDrawer,
-			}}
-		>
+		<>
 			{isGettingGeoData && <Spinner />}
 			<Drawer />
 			{drawerOpen && <Backdrop />}
 			<Map />
 			{geoError && <Notifications geoError={geoError} />}
-		</AppContext.Provider>
+		</>
 	)
 }
 

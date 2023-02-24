@@ -1,21 +1,20 @@
-import { useContext } from 'react'
-
-// utils
-import { AppContext } from '../../App'
-import { useGetGeoData } from '../../hooks/getGeoData'
-import './drawer.css'
+// components
 import Tabs from './tabs'
 
+// utils
+import { useBbox } from '../../contexts/bbox.context'
+import './drawer.css'
+
 export const Drawer = () => {
-	const { bbox, drawerOpen, toggleDrawer } = useContext(AppContext)
-	const { geoData } = useGetGeoData({ bbox })
+	const { drawerOpen, setDrawerOpen, geoJSON } = useBbox()
+	const { geoData } = geoJSON
 
 	if (geoData?.length < 1 || geoData?.error?.length > 0) return
 
 	return (
 		<div className={drawerOpen ? 'drawer open' : 'drawer'}>
 			<div className="arrows-container">
-				<div className="arrows" onClick={toggleDrawer}>
+				<div className="arrows" onClick={() => setDrawerOpen(!drawerOpen)}>
 					{drawerOpen ? (
 						<img
 							className="right"
@@ -36,7 +35,7 @@ export const Drawer = () => {
 }
 
 export const Backdrop = () => {
-	const { toggleDrawer } = useContext(AppContext)
+	const { drawerOpen, setDrawerOpen } = useBbox()
 
-	return <div className="backdrop" onClick={toggleDrawer} />
+	return <div className="backdrop" onClick={() => setDrawerOpen(!drawerOpen)} />
 }

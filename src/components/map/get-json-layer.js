@@ -1,4 +1,3 @@
-import { useContext } from 'react'
 import ReactDOMServer from 'react-dom/server'
 import L from 'leaflet'
 import { useMap } from 'react-leaflet'
@@ -7,13 +6,13 @@ import { useMap } from 'react-leaflet'
 import { Popup } from '../widgets/popup'
 
 // utils
-import { AppContext } from '../../App'
-import { useGetGeoData } from '../../hooks/getGeoData'
+import { useBbox } from '../../contexts/bbox.context'
 
 const GeoJSONLayer = () => {
 	const map = useMap()
-	const { bbox } = useContext(AppContext)
-	const { geoData } = useGetGeoData({ bbox })
+	const { bbox, geoJSON } = useBbox()
+	const { geoData } = geoJSON
+
 	const geojsonMarkerOptions = {
 		radius: 8,
 		fillColor: '#ff7800',
